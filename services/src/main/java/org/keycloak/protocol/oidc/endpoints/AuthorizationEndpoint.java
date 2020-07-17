@@ -416,6 +416,7 @@ public class AuthorizationEndpoint extends AuthorizationEndpointBase {
     }
 
     private void checkRedirectUri() {
+        logger.info("** CODAKIN TEST ** - In checkRedirectUri");
         String redirectUriParam = request.getRedirectUriParam();
         boolean isOIDCRequest = TokenUtil.isOIDCRequest(request.getScope());
 
