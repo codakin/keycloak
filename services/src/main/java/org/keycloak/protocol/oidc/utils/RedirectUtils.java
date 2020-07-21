@@ -112,10 +112,12 @@ public class RedirectUtils {
             redirectUri = lowerCaseHostname(redirectUri);
 
             String r = redirectUri;
+            logger.debug("redirectUri 0:" + redirectUri);
             Set<String> resolveValidRedirects = resolveValidRedirects(session, rootUrl, validRedirects);
 
             boolean valid = matchesRedirects(resolveValidRedirects, r);
-
+            logger.debug("Valid 1:" + valid);
+            logger.debug("Constants.INSTALLED_APP_URL: " + Constants.INSTALLED_APP_URL);
             if (!valid && r.startsWith(Constants.INSTALLED_APP_URL) && r.indexOf(':', Constants.INSTALLED_APP_URL.length()) >= 0) {
                 int i = r.indexOf(':', Constants.INSTALLED_APP_URL.length());
 
@@ -130,13 +132,18 @@ public class RedirectUtils {
                 r = sb.toString();
 
                 valid = matchesRedirects(resolveValidRedirects, r);
+                logger.debug("Valid 2: " + valid);
             }
             if (valid && redirectUri.startsWith("/")) {
                 redirectUri = relativeToAbsoluteURI(session, rootUrl, redirectUri);
+                logger.debug("redirectUri 1:" + redirectUri);
             }
             redirectUri = valid ? redirectUri : null;
+            logger.debug("redirectUri 2:" + redirectUri);
         }
 
+        logger.debug("redirectUri 3:" + redirectUri);
+        logger.debug("Constants.INSTALLED_APP_URN:" + Constants.INSTALLED_APP_URN);
         if (Constants.INSTALLED_APP_URN.equals(redirectUri)) {
             return Urls.realmInstalledAppUrnCallback(uriInfo.getBaseUri(), realm.getName()).toString();
         } else {
