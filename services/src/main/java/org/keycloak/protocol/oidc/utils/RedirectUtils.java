@@ -64,6 +64,7 @@ public class RedirectUtils {
                 validRedirect = relativeToAbsoluteURI(session, rootUrl, validRedirect);
                 logger.debugv("replacing relative valid redirect with: {0}", validRedirect);
                 resolveValidRedirects.add(validRedirect);
+            }
         }
         return resolveValidRedirects;
     }
